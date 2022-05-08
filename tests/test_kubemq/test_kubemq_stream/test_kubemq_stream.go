@@ -15,7 +15,12 @@ import (
 )
 
 /*
-* Slightly modified version of https://github.com/kubemq-io/go-sdk-cookbook/blob/main/queues/stream/main.go
+* This code uses a modified version of (https://github.com/kubemq-io/go-sdk-cookbook/blob/main/queues/stream/main.go).
+* In this test scenario there are 2 message queues (channelA, channelB) and 2 queue stream clients (queuesClientA, queuesClientB),
+* queuesClientA sends messages to channelB. Those messageIDs are added to a string set.
+* queuesClientB receives messages from channelB and sends/echos them to channelA (the hard way, not via resend).
+* queuesClientA receives messages from channelA.  Those messageIDs are removed from the string set.
+* A successful test will have no errors and no 'lost' messages in the string set.
  */
 
 type stringSet struct {
