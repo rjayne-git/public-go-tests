@@ -1,0 +1,426 @@
+Starting: C:\Users\rjayne\go\bin\dlv.exe dap --check-go-version=false --listen=127.0.0.1:50291 from c:\GitHub\rjayne-git\public-go-tests\tests\test_kubemq\test_kubemq_stream
+DAP server listening at: 127.0.0.1:50291
+Type 'dlv help' for list of commands.
+2022/05/08 13:58:55 INFO: [core] original dial target is: "localhost:50000"
+2022/05/08 13:58:55 INFO: [core] parsed dial target is: {Scheme:localhost Authority: Endpoint:50000 URL:{Scheme:localhost Opaque:50000 User: Host: Path: RawPath: ForceQuery:false RawQuery: Fragment: RawFragment:}}
+2022/05/08 13:58:55 INFO: [core] fallback to scheme "passthrough"
+2022/05/08 13:58:55 INFO: [core] parsed dial target is: {Scheme:passthrough Authority: Endpoint:localhost:50000 URL:{Scheme:passthrough Opaque: User: Host: Path:/localhost:50000 RawPath: ForceQuery:false RawQuery: Fragment: RawFragment:}}
+2022/05/08 13:58:55 INFO: [core] Channel authority set to "localhost:50000"
+2022/05/08 13:58:55 INFO: [core] ccResolverWrapper: sending update to cc: {[{localhost:50000  <nil> <nil> 0 <nil>}] <nil> <nil>}
+2022/05/08 13:58:55 INFO: [core] ClientConn switching balancer to "pick_first"
+2022/05/08 13:58:55 INFO: [core] Channel switches to new LB policy "pick_first"
+2022/05/08 13:58:55 INFO: [core] original dial target is: "localhost:50000"
+2022/05/08 13:58:55 INFO: [core] parsed dial target is: {Scheme:localhost Authority: Endpoint:50000 URL:{Scheme:localhost Opaque:50000 User: Host: Path: RawPath: ForceQuery:false RawQuery: Fragment: RawFragment:}}
+2022/05/08 13:58:55 INFO: [core] fallback to scheme "passthrough"
+2022/05/08 13:58:55 INFO: [core] parsed dial target is: {Scheme:passthrough Authority: Endpoint:localhost:50000 URL:{Scheme:passthrough Opaque: User: Host: Path:/localhost:50000 RawPath: ForceQuery:false RawQuery: Fragment: RawFragment:}}
+2022/05/08 13:58:55 INFO: [core] Channel authority set to "localhost:50000"
+2022/05/08 13:58:55 INFO: [core] ccResolverWrapper: sending update to cc: {[{localhost:50000  <nil> <nil> 0 <nil>}] <nil> <nil>}
+2022/05/08 13:58:55 INFO: [core] ClientConn switching balancer to "pick_first"
+2022/05/08 13:58:55 INFO: [core] Channel switches to new LB policy "pick_first"
+2022/05/08 13:58:55 INFO: [core] Subchannel Connectivity change to CONNECTING
+2022/05/08 13:58:55 INFO: [core] Subchannel Connectivity change to CONNECTING
+2022/05/08 13:58:55 INFO: [core] Subchannel picks a new address "localhost:50000" to connect
+2022/05/08 13:58:55 INFO: [core] Subchannel picks a new address "localhost:50000" to connect
+2022/05/08 13:58:55 INFO: [core] blockingPicker: the picked transport is not ready, loop back to repick
+2022/05/08 13:58:55 INFO: [core] blockingPicker: the picked transport is not ready, loop back to repick
+2022/05/08 13:58:55 INFO: [core] blockingPicker: the picked transport is not ready, loop back to repick
+2022/05/08 13:58:55 INFO: [core] pickfirstBalancer: UpdateSubConnState: 0xc000318080, {CONNECTING <nil>}
+2022/05/08 13:58:55 INFO: [core] Channel Connectivity change to CONNECTING
+2022/05/08 13:58:55 INFO: [core] pickfirstBalancer: UpdateSubConnState: 0xc0003184a0, {CONNECTING <nil>}
+2022/05/08 13:58:55 INFO: [core] Channel Connectivity change to CONNECTING
+2022/05/08 13:58:55 INFO: [core] Subchannel Connectivity change to READY
+2022/05/08 13:58:55 INFO: [core] Subchannel Connectivity change to READY
+2022/05/08 13:58:55 INFO: [core] pickfirstBalancer: UpdateSubConnState: 0xc000318080, {READY <nil>}
+2022/05/08 13:58:55 INFO: [core] Channel Connectivity change to READY
+2022/05/08 13:58:55 INFO: [core] pickfirstBalancer: UpdateSubConnState: 0xc0003184a0, {READY <nil>}
+2022/05/08 13:58:55 INFO: [core] Channel Connectivity change to READY
+2022/05/08 13:58:55 SEND-A: MessageID: 0oTCqtiypmcbIMMbdrwjpm, Body: test_message_1
+2022/05/08 13:58:55 RECV-B: MessageID: 0oTCqtiypmcbIMMbdrwjpm, Body: test_message_1, Ack
+2022/05/08 13:58:55 SEND-B: MessageID: 0oTCqtiypmcbIMMbdrwjpm, Body: test_message_1
+2022/05/08 13:58:55 RECV-A: MessageID: 0oTCqtiypmcbIMMbdrwjpm, Body: test_message_1, Remainder: 0, Ack
+2022/05/08 13:58:55 SEND-A: MessageID: Eo1WcSvQtBqKUPSub85N2O, Body: test_message_2
+2022/05/08 13:58:55 RECV-B: MessageID: Eo1WcSvQtBqKUPSub85N2O, Body: test_message_2, Ack
+2022/05/08 13:58:55 RECV-A: MessageID: Eo1WcSvQtBqKUPSub85N2O, Body: test_message_2, Remainder: 0, Ack
+2022/05/08 13:58:55 SEND-B: MessageID: Eo1WcSvQtBqKUPSub85N2O, Body: test_message_2
+2022/05/08 13:58:55 SEND-A: MessageID: 9i9L20QuU4hEvYpp3Ipj7q, Body: test_message_3
+2022/05/08 13:58:55 RECV-B: MessageID: 9i9L20QuU4hEvYpp3Ipj7q, Body: test_message_3, Ack
+2022/05/08 13:58:55 SEND-B: MessageID: 9i9L20QuU4hEvYpp3Ipj7q, Body: test_message_3
+2022/05/08 13:58:55 RECV-A: MessageID: 9i9L20QuU4hEvYpp3Ipj7q, Body: test_message_3, Remainder: 0, Ack
+2022/05/08 13:58:55 RECV-B: MessageID: lM2ZYqCzjTRDc4fKnWTZiN, Body: test_message_4, Ack
+2022/05/08 13:58:55 SEND-A: MessageID: lM2ZYqCzjTRDc4fKnWTZiN, Body: test_message_4
+2022/05/08 13:58:55 SEND-B: MessageID: lM2ZYqCzjTRDc4fKnWTZiN, Body: test_message_4
+2022/05/08 13:58:55 RECV-A: MessageID: lM2ZYqCzjTRDc4fKnWTZiN, Body: test_message_4, Remainder: 0, Ack
+2022/05/08 13:58:55 RECV-B: MessageID: ek4FhigXtoOvAfktjLkvGO, Body: test_message_5, Ack
+2022/05/08 13:58:55 SEND-A: MessageID: ek4FhigXtoOvAfktjLkvGO, Body: test_message_5
+2022/05/08 13:58:55 SEND-B: MessageID: ek4FhigXtoOvAfktjLkvGO, Body: test_message_5
+2022/05/08 13:58:55 RECV-A: MessageID: ek4FhigXtoOvAfktjLkvGO, Body: test_message_5, Remainder: 0, Ack
+2022/05/08 13:58:55 SEND-A: MessageID: a2aLpZ64ov88kRPkCJrX9B, Body: test_message_6
+2022/05/08 13:58:55 RECV-B: MessageID: a2aLpZ64ov88kRPkCJrX9B, Body: test_message_6, Ack
+2022/05/08 13:58:55 SEND-B: MessageID: a2aLpZ64ov88kRPkCJrX9B, Body: test_message_6
+2022/05/08 13:58:55 RECV-A: MessageID: a2aLpZ64ov88kRPkCJrX9B, Body: test_message_6, Remainder: 0, Ack
+2022/05/08 13:58:55 SEND-A: MessageID: UAEPqKCkHvrNL1c7LsrGqW, Body: test_message_7
+2022/05/08 13:58:55 RECV-B: MessageID: UAEPqKCkHvrNL1c7LsrGqW, Body: test_message_7, Ack
+2022/05/08 13:58:55 RECV-A: MessageID: UAEPqKCkHvrNL1c7LsrGqW, Body: test_message_7, Remainder: 0, Ack
+2022/05/08 13:58:55 SEND-B: MessageID: UAEPqKCkHvrNL1c7LsrGqW, Body: test_message_7
+2022/05/08 13:58:56 SEND-A: MessageID: jQ6TDjqChupg9axbOQjXeu, Body: test_message_8
+2022/05/08 13:58:56 RECV-B: MessageID: jQ6TDjqChupg9axbOQjXeu, Body: test_message_8, Ack
+2022/05/08 13:58:56 SEND-B: MessageID: jQ6TDjqChupg9axbOQjXeu, Body: test_message_8
+2022/05/08 13:58:56 RECV-A: MessageID: jQ6TDjqChupg9axbOQjXeu, Body: test_message_8, Remainder: 0, Ack
+2022/05/08 13:58:56 SEND-A: MessageID: Ba94ULuDVFbDDOa3rA8rRq, Body: test_message_9
+2022/05/08 13:58:56 RECV-B: MessageID: Ba94ULuDVFbDDOa3rA8rRq, Body: test_message_9, Ack
+2022/05/08 13:58:56 SEND-B: MessageID: Ba94ULuDVFbDDOa3rA8rRq, Body: test_message_9
+2022/05/08 13:58:56 RECV-A: MessageID: Ba94ULuDVFbDDOa3rA8rRq, Body: test_message_9, Remainder: 0, Ack
+2022/05/08 13:58:56 SEND-A: MessageID: h9aUvr7JDTajF0BKotMp6N, Body: test_message_10
+2022/05/08 13:58:56 RECV-B: MessageID: h9aUvr7JDTajF0BKotMp6N, Body: test_message_10, Ack
+2022/05/08 13:58:56 SEND-B: MessageID: h9aUvr7JDTajF0BKotMp6N, Body: test_message_10
+2022/05/08 13:58:56 RECV-A: MessageID: h9aUvr7JDTajF0BKotMp6N, Body: test_message_10, Remainder: 0, Ack
+2022/05/08 13:58:56 SEND-A: MessageID: 66UofAE7XOfOJLEP3huBxB, Body: test_message_11
+2022/05/08 13:58:56 RECV-B: MessageID: 66UofAE7XOfOJLEP3huBxB, Body: test_message_11, Ack
+2022/05/08 13:58:56 SEND-B: MessageID: 66UofAE7XOfOJLEP3huBxB, Body: test_message_11
+2022/05/08 13:58:56 RECV-A: MessageID: 66UofAE7XOfOJLEP3huBxB, Body: test_message_11, Remainder: 0, Ack
+2022/05/08 13:58:56 SEND-A: MessageID: Mz8nohanboVlctmqO7XRZv, Body: test_message_12
+2022/05/08 13:58:56 RECV-B: MessageID: Mz8nohanboVlctmqO7XRZv, Body: test_message_12, Ack
+2022/05/08 13:58:56 SEND-B: MessageID: Mz8nohanboVlctmqO7XRZv, Body: test_message_12
+2022/05/08 13:58:56 RECV-A: MessageID: Mz8nohanboVlctmqO7XRZv, Body: test_message_12, Remainder: 0, Ack
+2022/05/08 13:58:56 RECV-B: MessageID: AY1LlSsUhoeA1lceSIxWvs, Body: test_message_13, Ack
+2022/05/08 13:58:56 SEND-A: MessageID: AY1LlSsUhoeA1lceSIxWvs, Body: test_message_13
+2022/05/08 13:58:56 SEND-B: MessageID: AY1LlSsUhoeA1lceSIxWvs, Body: test_message_13
+2022/05/08 13:58:56 RECV-A: MessageID: AY1LlSsUhoeA1lceSIxWvs, Body: test_message_13, Remainder: 0, Ack
+2022/05/08 13:58:56 SEND-A: MessageID: iKHOBsxAOOirv8OsJu1tsf, Body: test_message_14
+2022/05/08 13:58:56 RECV-B: MessageID: iKHOBsxAOOirv8OsJu1tsf, Body: test_message_14, Ack
+2022/05/08 13:58:56 SEND-B: MessageID: iKHOBsxAOOirv8OsJu1tsf, Body: test_message_14
+2022/05/08 13:58:56 RECV-A: MessageID: iKHOBsxAOOirv8OsJu1tsf, Body: test_message_14, Remainder: 0, Ack
+2022/05/08 13:58:56 SEND-A: MessageID: BE7KrY0VlX2apR7U2IgvVJ, Body: test_message_15
+2022/05/08 13:58:56 RECV-B: MessageID: BE7KrY0VlX2apR7U2IgvVJ, Body: test_message_15, Ack
+2022/05/08 13:58:56 SEND-B: MessageID: BE7KrY0VlX2apR7U2IgvVJ, Body: test_message_15
+2022/05/08 13:58:56 RECV-A: MessageID: BE7KrY0VlX2apR7U2IgvVJ, Body: test_message_15, Remainder: 0, Ack
+2022/05/08 13:58:56 SEND-A: MessageID: e8u6Z8maU7CObY9EKbNAzm, Body: test_message_16
+2022/05/08 13:58:56 RECV-B: MessageID: e8u6Z8maU7CObY9EKbNAzm, Body: test_message_16, Ack
+2022/05/08 13:58:56 SEND-B: MessageID: e8u6Z8maU7CObY9EKbNAzm, Body: test_message_16
+2022/05/08 13:58:56 RECV-A: MessageID: e8u6Z8maU7CObY9EKbNAzm, Body: test_message_16, Remainder: 0, Ack
+2022/05/08 13:58:57 SEND-A: MessageID: gR7Cmz4YPliB7lmDQPiSpL, Body: test_message_17
+2022/05/08 13:58:57 RECV-B: MessageID: gR7Cmz4YPliB7lmDQPiSpL, Body: test_message_17, Ack
+2022/05/08 13:58:57 SEND-B: MessageID: gR7Cmz4YPliB7lmDQPiSpL, Body: test_message_17
+2022/05/08 13:58:57 RECV-A: MessageID: gR7Cmz4YPliB7lmDQPiSpL, Body: test_message_17, Remainder: 0, Ack
+2022/05/08 13:58:57 SEND-A: MessageID: eaetF6i44xm58zpVENB8b4, Body: test_message_18
+2022/05/08 13:58:57 RECV-B: MessageID: eaetF6i44xm58zpVENB8b4, Body: test_message_18, Ack
+2022/05/08 13:58:57 SEND-B: MessageID: eaetF6i44xm58zpVENB8b4, Body: test_message_18
+2022/05/08 13:58:57 RECV-A: MessageID: eaetF6i44xm58zpVENB8b4, Body: test_message_18, Remainder: 0, Ack
+2022/05/08 13:58:57 RECV-B: MessageID: 6Mzifzi5bj684QXVFeHvQI, Body: test_message_19, Ack
+2022/05/08 13:58:57 SEND-A: MessageID: 6Mzifzi5bj684QXVFeHvQI, Body: test_message_19
+2022/05/08 13:58:57 SEND-B: MessageID: 6Mzifzi5bj684QXVFeHvQI, Body: test_message_19
+2022/05/08 13:58:57 RECV-A: MessageID: 6Mzifzi5bj684QXVFeHvQI, Body: test_message_19, Remainder: 0, Ack
+2022/05/08 13:58:57 SEND-A: MessageID: TvBcksJLY4N8GQoQbl8sJh, Body: test_message_20
+2022/05/08 13:58:57 RECV-B: MessageID: TvBcksJLY4N8GQoQbl8sJh, Body: test_message_20, Ack
+2022/05/08 13:58:57 SEND-B: MessageID: TvBcksJLY4N8GQoQbl8sJh, Body: test_message_20
+2022/05/08 13:58:57 RECV-A: MessageID: TvBcksJLY4N8GQoQbl8sJh, Body: test_message_20, Remainder: 0, Ack
+2022/05/08 13:58:57 RECV-B: MessageID: 9FY4YE3VrHh5hClj2u6sFJ, Body: test_message_21, Ack
+2022/05/08 13:58:57 SEND-A: MessageID: 9FY4YE3VrHh5hClj2u6sFJ, Body: test_message_21
+2022/05/08 13:58:57 RECV-A: MessageID: 9FY4YE3VrHh5hClj2u6sFJ, Body: test_message_21, Remainder: 0, Ack
+2022/05/08 13:58:57 SEND-B: MessageID: 9FY4YE3VrHh5hClj2u6sFJ, Body: test_message_21
+2022/05/08 13:58:57 RECV-B: MessageID: 07CQwBZphT2UCSOCcRnR4I, Body: test_message_22, Ack
+2022/05/08 13:58:57 SEND-A: MessageID: 07CQwBZphT2UCSOCcRnR4I, Body: test_message_22
+2022/05/08 13:58:57 SEND-B: MessageID: 07CQwBZphT2UCSOCcRnR4I, Body: test_message_22
+2022/05/08 13:58:57 RECV-A: MessageID: 07CQwBZphT2UCSOCcRnR4I, Body: test_message_22, Remainder: 0, Ack
+2022/05/08 13:58:57 RECV-B: MessageID: IqtuIp24iCuxl1kEoQ70c1, Body: test_message_23, Ack
+2022/05/08 13:58:57 SEND-A: MessageID: IqtuIp24iCuxl1kEoQ70c1, Body: test_message_23
+2022/05/08 13:58:57 SEND-B: MessageID: IqtuIp24iCuxl1kEoQ70c1, Body: test_message_23
+2022/05/08 13:58:57 RECV-A: MessageID: IqtuIp24iCuxl1kEoQ70c1, Body: test_message_23, Remainder: 0, Ack
+2022/05/08 13:58:57 SEND-A: MessageID: KhRGleLRJ1ccJ6caEeTOTE, Body: test_message_24
+2022/05/08 13:58:57 RECV-B: MessageID: KhRGleLRJ1ccJ6caEeTOTE, Body: test_message_24, Ack
+2022/05/08 13:58:57 SEND-B: MessageID: KhRGleLRJ1ccJ6caEeTOTE, Body: test_message_24
+2022/05/08 13:58:57 RECV-A: MessageID: KhRGleLRJ1ccJ6caEeTOTE, Body: test_message_24, Remainder: 0, Ack
+2022/05/08 13:58:57 SEND-A: MessageID: MK0w0l3zsVWkrJzWn3TR1d, Body: test_message_25
+2022/05/08 13:58:57 RECV-B: MessageID: MK0w0l3zsVWkrJzWn3TR1d, Body: test_message_25, Ack
+2022/05/08 13:58:57 RECV-A: MessageID: MK0w0l3zsVWkrJzWn3TR1d, Body: test_message_25, Remainder: 0, Ack
+2022/05/08 13:58:57 SEND-B: MessageID: MK0w0l3zsVWkrJzWn3TR1d, Body: test_message_25
+2022/05/08 13:58:58 SEND-A: MessageID: rGCcfpLVguKYFOt6EK71Wf, Body: test_message_26
+2022/05/08 13:58:58 RECV-B: MessageID: rGCcfpLVguKYFOt6EK71Wf, Body: test_message_26, Ack
+2022/05/08 13:58:58 SEND-B: MessageID: rGCcfpLVguKYFOt6EK71Wf, Body: test_message_26
+2022/05/08 13:58:58 RECV-A: MessageID: rGCcfpLVguKYFOt6EK71Wf, Body: test_message_26, Remainder: 0, Ack
+2022/05/08 13:58:58 SEND-A: MessageID: cYRBfk75A1M9sGLn8WWJOj, Body: test_message_27
+2022/05/08 13:58:58 RECV-B: MessageID: cYRBfk75A1M9sGLn8WWJOj, Body: test_message_27, Ack
+2022/05/08 13:58:58 RECV-A: MessageID: cYRBfk75A1M9sGLn8WWJOj, Body: test_message_27, Remainder: 0, Ack
+2022/05/08 13:58:58 SEND-B: MessageID: cYRBfk75A1M9sGLn8WWJOj, Body: test_message_27
+2022/05/08 13:58:58 SEND-A: MessageID: 7ofMblxgBlhbjrT3CIetTO, Body: test_message_28
+2022/05/08 13:58:58 RECV-B: MessageID: 7ofMblxgBlhbjrT3CIetTO, Body: test_message_28, Ack
+2022/05/08 13:58:58 SEND-B: MessageID: 7ofMblxgBlhbjrT3CIetTO, Body: test_message_28
+2022/05/08 13:58:58 RECV-A: MessageID: 7ofMblxgBlhbjrT3CIetTO, Body: test_message_28, Remainder: 0, Ack
+2022/05/08 13:58:58 RECV-B: MessageID: qV2zin5gH9jKOyfoq88zZL, Body: test_message_29, Ack
+2022/05/08 13:58:58 SEND-A: MessageID: qV2zin5gH9jKOyfoq88zZL, Body: test_message_29
+2022/05/08 13:58:58 RECV-A: MessageID: qV2zin5gH9jKOyfoq88zZL, Body: test_message_29, Remainder: 0, Ack
+2022/05/08 13:58:58 SEND-B: MessageID: qV2zin5gH9jKOyfoq88zZL, Body: test_message_29
+2022/05/08 13:58:58 SEND-A: MessageID: Va7AWRgTWdinuJ3fi4oPuq, Body: test_message_30
+2022/05/08 13:58:58 RECV-B: MessageID: Va7AWRgTWdinuJ3fi4oPuq, Body: test_message_30, Ack
+2022/05/08 13:58:58 RECV-A: MessageID: Va7AWRgTWdinuJ3fi4oPuq, Body: test_message_30, Remainder: 0, Ack
+2022/05/08 13:58:58 SEND-B: MessageID: Va7AWRgTWdinuJ3fi4oPuq, Body: test_message_30
+2022/05/08 13:58:58 SEND-A: MessageID: 7yZc2TDrXUdmqj0oWTOnKC, Body: test_message_31
+2022/05/08 13:58:58 RECV-B: MessageID: 7yZc2TDrXUdmqj0oWTOnKC, Body: test_message_31, Ack
+2022/05/08 13:58:58 RECV-A: MessageID: 7yZc2TDrXUdmqj0oWTOnKC, Body: test_message_31, Remainder: 0, Ack
+2022/05/08 13:58:58 SEND-B: MessageID: 7yZc2TDrXUdmqj0oWTOnKC, Body: test_message_31
+2022/05/08 13:58:58 SEND-A: MessageID: 7t3COsHlegExRGYvYBQ1LS, Body: test_message_32
+2022/05/08 13:58:58 RECV-B: MessageID: 7t3COsHlegExRGYvYBQ1LS, Body: test_message_32, Ack
+2022/05/08 13:58:58 SEND-B: MessageID: 7t3COsHlegExRGYvYBQ1LS, Body: test_message_32
+2022/05/08 13:58:58 RECV-A: MessageID: 7t3COsHlegExRGYvYBQ1LS, Body: test_message_32, Remainder: 0, Ack
+2022/05/08 13:58:58 SEND-A: MessageID: O0D4JJQWcy956qoAvE3Br9, Body: test_message_33
+2022/05/08 13:58:58 RECV-B: MessageID: O0D4JJQWcy956qoAvE3Br9, Body: test_message_33, Ack
+2022/05/08 13:58:58 RECV-A: MessageID: O0D4JJQWcy956qoAvE3Br9, Body: test_message_33, Remainder: 0, Ack
+2022/05/08 13:58:58 SEND-B: MessageID: O0D4JJQWcy956qoAvE3Br9, Body: test_message_33
+2022/05/08 13:58:58 SEND-A: MessageID: Rrvms8YIOpIXjZCjMbYqxm, Body: test_message_34
+2022/05/08 13:58:58 RECV-B: MessageID: Rrvms8YIOpIXjZCjMbYqxm, Body: test_message_34, Ack
+2022/05/08 13:58:58 SEND-B: MessageID: Rrvms8YIOpIXjZCjMbYqxm, Body: test_message_34
+2022/05/08 13:58:58 RECV-A: MessageID: Rrvms8YIOpIXjZCjMbYqxm, Body: test_message_34, Remainder: 0, Ack
+2022/05/08 13:58:59 SEND-A: MessageID: VG1EOdztDwN5o0cL09dMa6, Body: test_message_35
+2022/05/08 13:58:59 RECV-B: MessageID: VG1EOdztDwN5o0cL09dMa6, Body: test_message_35, Ack
+2022/05/08 13:58:59 SEND-B: MessageID: VG1EOdztDwN5o0cL09dMa6, Body: test_message_35
+2022/05/08 13:58:59 RECV-A: MessageID: VG1EOdztDwN5o0cL09dMa6, Body: test_message_35, Remainder: 0, Ack
+2022/05/08 13:58:59 SEND-A: MessageID: LCY2oQcvjDdKj1soceZwb9, Body: test_message_36
+2022/05/08 13:58:59 RECV-B: MessageID: LCY2oQcvjDdKj1soceZwb9, Body: test_message_36, Ack
+2022/05/08 13:58:59 RECV-A: MessageID: LCY2oQcvjDdKj1soceZwb9, Body: test_message_36, Remainder: 0, Ack
+2022/05/08 13:58:59 SEND-B: MessageID: LCY2oQcvjDdKj1soceZwb9, Body: test_message_36
+2022/05/08 13:58:59 SEND-A: MessageID: PpHZTU6nAcLwq54fcsmji4, Body: test_message_37
+2022/05/08 13:58:59 RECV-B: MessageID: PpHZTU6nAcLwq54fcsmji4, Body: test_message_37, Ack
+2022/05/08 13:58:59 SEND-B: MessageID: PpHZTU6nAcLwq54fcsmji4, Body: test_message_37
+2022/05/08 13:58:59 RECV-A: MessageID: PpHZTU6nAcLwq54fcsmji4, Body: test_message_37, Remainder: 0, Ack
+2022/05/08 13:58:59 SEND-A: MessageID: 2xMyGB7MZU8Q1ERfeCeZoJ, Body: test_message_38
+2022/05/08 13:58:59 RECV-B: MessageID: 2xMyGB7MZU8Q1ERfeCeZoJ, Body: test_message_38, Ack
+2022/05/08 13:58:59 SEND-B: MessageID: 2xMyGB7MZU8Q1ERfeCeZoJ, Body: test_message_38
+2022/05/08 13:58:59 RECV-A: MessageID: 2xMyGB7MZU8Q1ERfeCeZoJ, Body: test_message_38, Remainder: 0, Ack
+2022/05/08 13:58:59 SEND-A: MessageID: x5VxMCsSfkNZj9tEqqqe4r, Body: test_message_39
+2022/05/08 13:58:59 RECV-B: MessageID: x5VxMCsSfkNZj9tEqqqe4r, Body: test_message_39, Ack
+2022/05/08 13:58:59 RECV-A: MessageID: x5VxMCsSfkNZj9tEqqqe4r, Body: test_message_39, Remainder: 0, Ack
+2022/05/08 13:58:59 SEND-B: MessageID: x5VxMCsSfkNZj9tEqqqe4r, Body: test_message_39
+2022/05/08 13:58:59 SEND-A: MessageID: IbrzyUVLVYUuV2U2rZ5MC0, Body: test_message_40
+2022/05/08 13:58:59 RECV-B: MessageID: IbrzyUVLVYUuV2U2rZ5MC0, Body: test_message_40, Ack
+2022/05/08 13:58:59 SEND-B: MessageID: IbrzyUVLVYUuV2U2rZ5MC0, Body: test_message_40
+2022/05/08 13:58:59 RECV-A: MessageID: IbrzyUVLVYUuV2U2rZ5MC0, Body: test_message_40, Remainder: 0, Ack
+2022/05/08 13:58:59 RECV-B: MessageID: 6DI5JjfnS5XDvleXl2bpak, Body: test_message_41, Ack
+2022/05/08 13:58:59 SEND-A: MessageID: 6DI5JjfnS5XDvleXl2bpak, Body: test_message_41
+2022/05/08 13:58:59 RECV-A: MessageID: 6DI5JjfnS5XDvleXl2bpak, Body: test_message_41, Remainder: 0, Ack
+2022/05/08 13:58:59 SEND-B: MessageID: 6DI5JjfnS5XDvleXl2bpak, Body: test_message_41
+2022/05/08 13:58:59 RECV-B: MessageID: 4q8Db6SBzQDW8Z5rSiGaPm, Body: test_message_42, Ack
+2022/05/08 13:58:59 SEND-A: MessageID: 4q8Db6SBzQDW8Z5rSiGaPm, Body: test_message_42
+2022/05/08 13:58:59 SEND-B: MessageID: 4q8Db6SBzQDW8Z5rSiGaPm, Body: test_message_42
+2022/05/08 13:58:59 RECV-A: MessageID: 4q8Db6SBzQDW8Z5rSiGaPm, Body: test_message_42, Remainder: 0, Ack
+2022/05/08 13:58:59 SEND-A: MessageID: Jt1GuUM2kZWNNfdPXUZq99, Body: test_message_43
+2022/05/08 13:58:59 RECV-B: MessageID: Jt1GuUM2kZWNNfdPXUZq99, Body: test_message_43, Ack
+2022/05/08 13:58:59 SEND-B: MessageID: Jt1GuUM2kZWNNfdPXUZq99, Body: test_message_43
+2022/05/08 13:58:59 RECV-A: MessageID: Jt1GuUM2kZWNNfdPXUZq99, Body: test_message_43, Remainder: 0, Ack
+2022/05/08 13:59:00 SEND-A: MessageID: syT10QUrubfz0Oo2gSAnZg, Body: test_message_44
+2022/05/08 13:59:00 RECV-B: MessageID: syT10QUrubfz0Oo2gSAnZg, Body: test_message_44, Ack
+2022/05/08 13:59:00 RECV-A: MessageID: syT10QUrubfz0Oo2gSAnZg, Body: test_message_44, Remainder: 0, Ack
+2022/05/08 13:59:00 SEND-B: MessageID: syT10QUrubfz0Oo2gSAnZg, Body: test_message_44
+2022/05/08 13:59:00 SEND-A: MessageID: jAn79mIKT17zjbLie1d2uz, Body: test_message_45
+2022/05/08 13:59:00 RECV-B: MessageID: jAn79mIKT17zjbLie1d2uz, Body: test_message_45, Ack
+2022/05/08 13:59:00 RECV-A: MessageID: jAn79mIKT17zjbLie1d2uz, Body: test_message_45, Remainder: 0, Ack
+2022/05/08 13:59:00 SEND-B: MessageID: jAn79mIKT17zjbLie1d2uz, Body: test_message_45
+2022/05/08 13:59:00 SEND-A: MessageID: qIXmnaeaea2wwDYPgFU5ni, Body: test_message_46
+2022/05/08 13:59:00 RECV-B: MessageID: qIXmnaeaea2wwDYPgFU5ni, Body: test_message_46, Ack
+2022/05/08 13:59:00 SEND-B: MessageID: qIXmnaeaea2wwDYPgFU5ni, Body: test_message_46
+2022/05/08 13:59:00 RECV-A: MessageID: qIXmnaeaea2wwDYPgFU5ni, Body: test_message_46, Remainder: 0, Ack
+2022/05/08 13:59:00 SEND-A: MessageID: 8zeFaFqWVvYpEsZAZBm4EN, Body: test_message_47
+2022/05/08 13:59:00 RECV-B: MessageID: 8zeFaFqWVvYpEsZAZBm4EN, Body: test_message_47, Ack
+2022/05/08 13:59:00 SEND-B: MessageID: 8zeFaFqWVvYpEsZAZBm4EN, Body: test_message_47
+2022/05/08 13:59:00 RECV-A: MessageID: 8zeFaFqWVvYpEsZAZBm4EN, Body: test_message_47, Remainder: 0, Ack
+2022/05/08 13:59:00 SEND-A: MessageID: f4kHfZ8cZaCRWhSjvTnO6S, Body: test_message_48
+2022/05/08 13:59:00 RECV-B: MessageID: f4kHfZ8cZaCRWhSjvTnO6S, Body: test_message_48, Ack
+2022/05/08 13:59:00 SEND-B: MessageID: f4kHfZ8cZaCRWhSjvTnO6S, Body: test_message_48
+2022/05/08 13:59:00 RECV-A: MessageID: f4kHfZ8cZaCRWhSjvTnO6S, Body: test_message_48, Remainder: 0, Ack
+2022/05/08 13:59:00 SEND-A: MessageID: qr1FRRHkjNwriwdzCkr9cQ, Body: test_message_49
+2022/05/08 13:59:00 RECV-B: MessageID: qr1FRRHkjNwriwdzCkr9cQ, Body: test_message_49, Ack
+2022/05/08 13:59:00 SEND-B: MessageID: qr1FRRHkjNwriwdzCkr9cQ, Body: test_message_49
+2022/05/08 13:59:00 RECV-A: MessageID: qr1FRRHkjNwriwdzCkr9cQ, Body: test_message_49, Remainder: 0, Ack
+2022/05/08 13:59:00 SEND-A: MessageID: VQGWz55S1qU1WOJieX1SS9, Body: test_message_50
+2022/05/08 13:59:00 RECV-B: MessageID: VQGWz55S1qU1WOJieX1SS9, Body: test_message_50, Ack
+2022/05/08 13:59:00 SEND-B: MessageID: VQGWz55S1qU1WOJieX1SS9, Body: test_message_50
+2022/05/08 13:59:00 RECV-A: MessageID: VQGWz55S1qU1WOJieX1SS9, Body: test_message_50, Remainder: 0, Ack
+2022/05/08 13:59:00 SEND-A: MessageID: g6wvluJboMWd4SVx8wU5ND, Body: test_message_51
+2022/05/08 13:59:00 RECV-B: MessageID: g6wvluJboMWd4SVx8wU5ND, Body: test_message_51, Ack
+2022/05/08 13:59:00 SEND-B: MessageID: g6wvluJboMWd4SVx8wU5ND, Body: test_message_51
+2022/05/08 13:59:00 RECV-A: MessageID: g6wvluJboMWd4SVx8wU5ND, Body: test_message_51, Remainder: 0, Ack
+2022/05/08 13:59:00 SEND-A: MessageID: PnoP8yv6JAl9GAruz7wHIB, Body: test_message_52
+2022/05/08 13:59:00 RECV-B: MessageID: PnoP8yv6JAl9GAruz7wHIB, Body: test_message_52, Ack
+2022/05/08 13:59:00 SEND-B: MessageID: PnoP8yv6JAl9GAruz7wHIB, Body: test_message_52
+2022/05/08 13:59:00 RECV-A: MessageID: PnoP8yv6JAl9GAruz7wHIB, Body: test_message_52, Remainder: 0, Ack
+2022/05/08 13:59:01 RECV-B: MessageID: J4MuqHobABdTMGjo7OsYW5, Body: test_message_53, Ack
+2022/05/08 13:59:01 SEND-A: MessageID: J4MuqHobABdTMGjo7OsYW5, Body: test_message_53
+2022/05/08 13:59:01 RECV-A: MessageID: J4MuqHobABdTMGjo7OsYW5, Body: test_message_53, Remainder: 0, Ack
+2022/05/08 13:59:01 SEND-B: MessageID: J4MuqHobABdTMGjo7OsYW5, Body: test_message_53
+2022/05/08 13:59:01 SEND-A: MessageID: PSV8tP5FRa8v1oAMOdlX2v, Body: test_message_54
+2022/05/08 13:59:01 RECV-B: MessageID: PSV8tP5FRa8v1oAMOdlX2v, Body: test_message_54, Ack
+2022/05/08 13:59:01 SEND-B: MessageID: PSV8tP5FRa8v1oAMOdlX2v, Body: test_message_54
+2022/05/08 13:59:01 RECV-A: MessageID: PSV8tP5FRa8v1oAMOdlX2v, Body: test_message_54, Remainder: 0, Ack
+2022/05/08 13:59:01 SEND-A: MessageID: SEXENZKY2CypoJkd3rxVpT, Body: test_message_55
+2022/05/08 13:59:01 RECV-B: MessageID: SEXENZKY2CypoJkd3rxVpT, Body: test_message_55, Ack
+2022/05/08 13:59:01 SEND-B: MessageID: SEXENZKY2CypoJkd3rxVpT, Body: test_message_55
+2022/05/08 13:59:01 RECV-A: MessageID: SEXENZKY2CypoJkd3rxVpT, Body: test_message_55, Remainder: 0, Ack
+2022/05/08 13:59:01 SEND-A: MessageID: ISooexJRsMrNS9pDYzIWu7, Body: test_message_56
+2022/05/08 13:59:01 RECV-B: MessageID: ISooexJRsMrNS9pDYzIWu7, Body: test_message_56, Ack
+2022/05/08 13:59:01 SEND-B: MessageID: ISooexJRsMrNS9pDYzIWu7, Body: test_message_56
+2022/05/08 13:59:01 RECV-A: MessageID: ISooexJRsMrNS9pDYzIWu7, Body: test_message_56, Remainder: 0, Ack
+2022/05/08 13:59:01 SEND-A: MessageID: ZL2KVyjVad6zy3R5EITDXK, Body: test_message_57
+2022/05/08 13:59:01 RECV-B: MessageID: ZL2KVyjVad6zy3R5EITDXK, Body: test_message_57, Ack
+2022/05/08 13:59:01 RECV-A: MessageID: ZL2KVyjVad6zy3R5EITDXK, Body: test_message_57, Remainder: 0, Ack
+2022/05/08 13:59:01 SEND-B: MessageID: ZL2KVyjVad6zy3R5EITDXK, Body: test_message_57
+2022/05/08 13:59:01 SEND-A: MessageID: gwo9UD5AECw9rO0Tk9eLCE, Body: test_message_58
+2022/05/08 13:59:01 RECV-B: MessageID: gwo9UD5AECw9rO0Tk9eLCE, Body: test_message_58, Ack
+2022/05/08 13:59:01 RECV-A: MessageID: gwo9UD5AECw9rO0Tk9eLCE, Body: test_message_58, Remainder: 0, Ack
+2022/05/08 13:59:01 SEND-B: MessageID: gwo9UD5AECw9rO0Tk9eLCE, Body: test_message_58
+2022/05/08 13:59:01 SEND-A: MessageID: flTP1C687d1KSX6TPsnzdW, Body: test_message_59
+2022/05/08 13:59:01 RECV-B: MessageID: flTP1C687d1KSX6TPsnzdW, Body: test_message_59, Ack
+2022/05/08 13:59:01 SEND-B: MessageID: flTP1C687d1KSX6TPsnzdW, Body: test_message_59
+2022/05/08 13:59:01 RECV-A: MessageID: flTP1C687d1KSX6TPsnzdW, Body: test_message_59, Remainder: 0, Ack
+2022/05/08 13:59:01 SEND-A: MessageID: tTiifR3dFvBvlly7ZC9wJb, Body: test_message_60
+2022/05/08 13:59:01 RECV-B: MessageID: tTiifR3dFvBvlly7ZC9wJb, Body: test_message_60, Ack
+2022/05/08 13:59:01 SEND-B: MessageID: tTiifR3dFvBvlly7ZC9wJb, Body: test_message_60
+2022/05/08 13:59:01 RECV-A: MessageID: tTiifR3dFvBvlly7ZC9wJb, Body: test_message_60, Remainder: 0, Ack
+2022/05/08 13:59:01 SEND-A: MessageID: RDcozzNnBTs2US30Wu3CFs, Body: test_message_61
+2022/05/08 13:59:01 RECV-B: MessageID: RDcozzNnBTs2US30Wu3CFs, Body: test_message_61, Ack
+2022/05/08 13:59:01 SEND-B: MessageID: RDcozzNnBTs2US30Wu3CFs, Body: test_message_61
+2022/05/08 13:59:01 RECV-A: MessageID: RDcozzNnBTs2US30Wu3CFs, Body: test_message_61, Remainder: 0, Ack
+2022/05/08 13:59:02 SEND-A: MessageID: GtI2Nbbj1l3bYaYNDXEHMO, Body: test_message_62
+2022/05/08 13:59:02 RECV-B: MessageID: GtI2Nbbj1l3bYaYNDXEHMO, Body: test_message_62, Ack
+2022/05/08 13:59:02 RECV-A: MessageID: GtI2Nbbj1l3bYaYNDXEHMO, Body: test_message_62, Remainder: 0, Ack
+2022/05/08 13:59:02 SEND-B: MessageID: GtI2Nbbj1l3bYaYNDXEHMO, Body: test_message_62
+2022/05/08 13:59:02 SEND-A: MessageID: 2n3uvcQj67HU26rT9DB7ap, Body: test_message_63
+2022/05/08 13:59:02 RECV-B: MessageID: 2n3uvcQj67HU26rT9DB7ap, Body: test_message_63, Ack
+2022/05/08 13:59:02 RECV-A: MessageID: 2n3uvcQj67HU26rT9DB7ap, Body: test_message_63, Remainder: 0, Ack
+2022/05/08 13:59:02 SEND-B: MessageID: 2n3uvcQj67HU26rT9DB7ap, Body: test_message_63
+2022/05/08 13:59:02 RECV-B: MessageID: HXJ7VhOMyJocestnE3KLUN, Body: test_message_64, Ack
+2022/05/08 13:59:02 SEND-A: MessageID: HXJ7VhOMyJocestnE3KLUN, Body: test_message_64
+2022/05/08 13:59:02 SEND-B: MessageID: HXJ7VhOMyJocestnE3KLUN, Body: test_message_64
+2022/05/08 13:59:02 RECV-A: MessageID: HXJ7VhOMyJocestnE3KLUN, Body: test_message_64, Remainder: 0, Ack
+2022/05/08 13:59:02 SEND-A: MessageID: Wz578qhQvhRo4RYtfDvnsU, Body: test_message_65
+2022/05/08 13:59:02 RECV-B: MessageID: Wz578qhQvhRo4RYtfDvnsU, Body: test_message_65, Ack
+2022/05/08 13:59:02 SEND-B: MessageID: Wz578qhQvhRo4RYtfDvnsU, Body: test_message_65
+2022/05/08 13:59:02 RECV-A: MessageID: Wz578qhQvhRo4RYtfDvnsU, Body: test_message_65, Remainder: 0, Ack
+2022/05/08 13:59:02 SEND-A: MessageID: bHb9NarcvXhcnuktrcNPu9, Body: test_message_66
+2022/05/08 13:59:02 RECV-B: MessageID: bHb9NarcvXhcnuktrcNPu9, Body: test_message_66, Ack
+2022/05/08 13:59:02 RECV-A: MessageID: bHb9NarcvXhcnuktrcNPu9, Body: test_message_66, Remainder: 0, Ack
+2022/05/08 13:59:02 SEND-B: MessageID: bHb9NarcvXhcnuktrcNPu9, Body: test_message_66
+2022/05/08 13:59:02 SEND-A: MessageID: 7kBfxWz8xAGnDDYhtEUmpL, Body: test_message_67
+2022/05/08 13:59:02 RECV-B: MessageID: 7kBfxWz8xAGnDDYhtEUmpL, Body: test_message_67, Ack
+2022/05/08 13:59:02 SEND-B: MessageID: 7kBfxWz8xAGnDDYhtEUmpL, Body: test_message_67
+2022/05/08 13:59:02 RECV-A: MessageID: 7kBfxWz8xAGnDDYhtEUmpL, Body: test_message_67, Remainder: 0, Ack
+2022/05/08 13:59:02 SEND-A: MessageID: SvULnvz0b2cFUtcevFbiDU, Body: test_message_68
+2022/05/08 13:59:02 RECV-B: MessageID: SvULnvz0b2cFUtcevFbiDU, Body: test_message_68, Ack
+2022/05/08 13:59:02 RECV-A: MessageID: SvULnvz0b2cFUtcevFbiDU, Body: test_message_68, Remainder: 0, Ack
+2022/05/08 13:59:02 SEND-B: MessageID: SvULnvz0b2cFUtcevFbiDU, Body: test_message_68
+2022/05/08 13:59:02 SEND-A: MessageID: KOFQ8CMJDwyXwDlJw9g9f2, Body: test_message_69
+2022/05/08 13:59:02 RECV-B: MessageID: KOFQ8CMJDwyXwDlJw9g9f2, Body: test_message_69, Ack
+2022/05/08 13:59:02 RECV-A: MessageID: KOFQ8CMJDwyXwDlJw9g9f2, Body: test_message_69, Remainder: 0, Ack
+2022/05/08 13:59:02 SEND-B: MessageID: KOFQ8CMJDwyXwDlJw9g9f2, Body: test_message_69
+2022/05/08 13:59:02 SEND-A: MessageID: uJbkfInmW97oSIkwegavIT, Body: test_message_70
+2022/05/08 13:59:02 RECV-B: MessageID: uJbkfInmW97oSIkwegavIT, Body: test_message_70, Ack
+2022/05/08 13:59:02 SEND-B: MessageID: uJbkfInmW97oSIkwegavIT, Body: test_message_70
+2022/05/08 13:59:02 RECV-A: MessageID: uJbkfInmW97oSIkwegavIT, Body: test_message_70, Remainder: 0, Ack
+2022/05/08 13:59:02 SEND-A: MessageID: BQiUocepz2IEosdNRT4lFQ, Body: test_message_71
+2022/05/08 13:59:02 RECV-B: MessageID: BQiUocepz2IEosdNRT4lFQ, Body: test_message_71, Ack
+2022/05/08 13:59:03 RECV-A: MessageID: BQiUocepz2IEosdNRT4lFQ, Body: test_message_71, Remainder: 0, Ack
+2022/05/08 13:59:03 SEND-B: MessageID: BQiUocepz2IEosdNRT4lFQ, Body: test_message_71
+2022/05/08 13:59:03 SEND-A: MessageID: zC6cUCLuSCVw3mvt8B4zYx, Body: test_message_72
+2022/05/08 13:59:03 RECV-B: MessageID: zC6cUCLuSCVw3mvt8B4zYx, Body: test_message_72, Ack
+2022/05/08 13:59:03 SEND-B: MessageID: zC6cUCLuSCVw3mvt8B4zYx, Body: test_message_72
+2022/05/08 13:59:03 RECV-A: MessageID: zC6cUCLuSCVw3mvt8B4zYx, Body: test_message_72, Remainder: 0, Ack
+2022/05/08 13:59:03 SEND-A: MessageID: 6t0zcUIDXq7rUGn3jxml3z, Body: test_message_73
+2022/05/08 13:59:03 RECV-B: MessageID: 6t0zcUIDXq7rUGn3jxml3z, Body: test_message_73, Ack
+2022/05/08 13:59:03 SEND-B: MessageID: 6t0zcUIDXq7rUGn3jxml3z, Body: test_message_73
+2022/05/08 13:59:03 RECV-A: MessageID: 6t0zcUIDXq7rUGn3jxml3z, Body: test_message_73, Remainder: 0, Ack
+2022/05/08 13:59:03 SEND-A: MessageID: BEQlZfgnXpQVvPqrrepvIG, Body: test_message_74
+2022/05/08 13:59:03 RECV-B: MessageID: BEQlZfgnXpQVvPqrrepvIG, Body: test_message_74, Ack
+2022/05/08 13:59:03 SEND-B: MessageID: BEQlZfgnXpQVvPqrrepvIG, Body: test_message_74
+2022/05/08 13:59:03 RECV-A: MessageID: BEQlZfgnXpQVvPqrrepvIG, Body: test_message_74, Remainder: 0, Ack
+2022/05/08 13:59:03 SEND-A: MessageID: ynI16cnyLbDdlqOtSMEWR1, Body: test_message_75
+2022/05/08 13:59:03 RECV-B: MessageID: ynI16cnyLbDdlqOtSMEWR1, Body: test_message_75, Ack
+2022/05/08 13:59:03 SEND-B: MessageID: ynI16cnyLbDdlqOtSMEWR1, Body: test_message_75
+2022/05/08 13:59:03 RECV-A: MessageID: ynI16cnyLbDdlqOtSMEWR1, Body: test_message_75, Remainder: 0, Ack
+2022/05/08 13:59:03 RECV-B: MessageID: jCxs5qBdulF4KMzKs6jy7d, Body: test_message_76, Ack
+2022/05/08 13:59:03 SEND-A: MessageID: jCxs5qBdulF4KMzKs6jy7d, Body: test_message_76
+2022/05/08 13:59:03 SEND-B: MessageID: jCxs5qBdulF4KMzKs6jy7d, Body: test_message_76
+2022/05/08 13:59:03 RECV-A: MessageID: jCxs5qBdulF4KMzKs6jy7d, Body: test_message_76, Remainder: 0, Ack
+2022/05/08 13:59:03 RECV-B: MessageID: TUXs83spfEfOk4sh0J78XR, Body: test_message_77, Ack
+2022/05/08 13:59:03 SEND-A: MessageID: TUXs83spfEfOk4sh0J78XR, Body: test_message_77
+2022/05/08 13:59:03 RECV-A: MessageID: TUXs83spfEfOk4sh0J78XR, Body: test_message_77, Remainder: 0, Ack
+2022/05/08 13:59:03 SEND-B: MessageID: TUXs83spfEfOk4sh0J78XR, Body: test_message_77
+2022/05/08 13:59:03 SEND-A: MessageID: 25DXGssmTm6GSbbCtNJoRZ, Body: test_message_78
+2022/05/08 13:59:03 RECV-B: MessageID: 25DXGssmTm6GSbbCtNJoRZ, Body: test_message_78, Ack
+2022/05/08 13:59:03 SEND-B: MessageID: 25DXGssmTm6GSbbCtNJoRZ, Body: test_message_78
+2022/05/08 13:59:03 RECV-A: MessageID: 25DXGssmTm6GSbbCtNJoRZ, Body: test_message_78, Remainder: 0, Ack
+2022/05/08 13:59:03 RECV-B: MessageID: vmddJQo85dWxlr3Kn2sPSu, Body: test_message_79, Ack
+2022/05/08 13:59:03 SEND-A: MessageID: vmddJQo85dWxlr3Kn2sPSu, Body: test_message_79
+2022/05/08 13:59:03 SEND-B: MessageID: vmddJQo85dWxlr3Kn2sPSu, Body: test_message_79
+2022/05/08 13:59:03 RECV-A: MessageID: vmddJQo85dWxlr3Kn2sPSu, Body: test_message_79, Remainder: 0, Ack
+2022/05/08 13:59:03 SEND-A: MessageID: djKOGJh6V6uE0Bc1c6C9dS, Body: test_message_80
+2022/05/08 13:59:03 RECV-B: MessageID: djKOGJh6V6uE0Bc1c6C9dS, Body: test_message_80, Ack
+2022/05/08 13:59:03 RECV-A: MessageID: djKOGJh6V6uE0Bc1c6C9dS, Body: test_message_80, Remainder: 0, Ack
+2022/05/08 13:59:03 SEND-B: MessageID: djKOGJh6V6uE0Bc1c6C9dS, Body: test_message_80
+2022/05/08 13:59:04 SEND-A: MessageID: RTKxjRX0U3DA0R6qtTUvwy, Body: test_message_81
+2022/05/08 13:59:04 RECV-B: MessageID: RTKxjRX0U3DA0R6qtTUvwy, Body: test_message_81, Ack
+2022/05/08 13:59:04 RECV-A: MessageID: RTKxjRX0U3DA0R6qtTUvwy, Body: test_message_81, Remainder: 0, Ack
+2022/05/08 13:59:04 SEND-B: MessageID: RTKxjRX0U3DA0R6qtTUvwy, Body: test_message_81
+2022/05/08 13:59:04 SEND-A: MessageID: Ih1MP5Gjx3euFNlvOahyIa, Body: test_message_82
+2022/05/08 13:59:04 RECV-B: MessageID: Ih1MP5Gjx3euFNlvOahyIa, Body: test_message_82, Ack
+2022/05/08 13:59:04 SEND-B: MessageID: Ih1MP5Gjx3euFNlvOahyIa, Body: test_message_82
+2022/05/08 13:59:04 RECV-A: MessageID: Ih1MP5Gjx3euFNlvOahyIa, Body: test_message_82, Remainder: 0, Ack
+2022/05/08 13:59:04 SEND-A: MessageID: 7NZYCL2WKsSuScpRvwhdOu, Body: test_message_83
+2022/05/08 13:59:04 RECV-B: MessageID: 7NZYCL2WKsSuScpRvwhdOu, Body: test_message_83, Ack
+2022/05/08 13:59:04 RECV-A: MessageID: 7NZYCL2WKsSuScpRvwhdOu, Body: test_message_83, Remainder: 0, Ack
+2022/05/08 13:59:04 SEND-B: MessageID: 7NZYCL2WKsSuScpRvwhdOu, Body: test_message_83
+2022/05/08 13:59:04 SEND-A: MessageID: F5XCvEqrTyj5UNgQeoTZGm, Body: test_message_84
+2022/05/08 13:59:04 RECV-B: MessageID: F5XCvEqrTyj5UNgQeoTZGm, Body: test_message_84, Ack
+2022/05/08 13:59:04 RECV-A: MessageID: F5XCvEqrTyj5UNgQeoTZGm, Body: test_message_84, Remainder: 0, Ack
+2022/05/08 13:59:04 SEND-B: MessageID: F5XCvEqrTyj5UNgQeoTZGm, Body: test_message_84
+2022/05/08 13:59:04 SEND-A: MessageID: JuEd33gASTTyE4qD8ak7sk, Body: test_message_85
+2022/05/08 13:59:04 RECV-B: MessageID: JuEd33gASTTyE4qD8ak7sk, Body: test_message_85, Ack
+2022/05/08 13:59:04 RECV-A: MessageID: JuEd33gASTTyE4qD8ak7sk, Body: test_message_85, Remainder: 0, Ack
+2022/05/08 13:59:04 SEND-B: MessageID: JuEd33gASTTyE4qD8ak7sk, Body: test_message_85
+2022/05/08 13:59:04 SEND-A: MessageID: U79UOxoIkYsUjCkJdouUGD, Body: test_message_86
+2022/05/08 13:59:04 RECV-B: MessageID: U79UOxoIkYsUjCkJdouUGD, Body: test_message_86, Ack
+2022/05/08 13:59:04 SEND-B: MessageID: U79UOxoIkYsUjCkJdouUGD, Body: test_message_86
+2022/05/08 13:59:04 RECV-A: MessageID: U79UOxoIkYsUjCkJdouUGD, Body: test_message_86, Remainder: 0, Ack
+2022/05/08 13:59:04 RECV-B: MessageID: p5k3UAOP0hFF8QYEHEkL1m, Body: test_message_87, Ack
+2022/05/08 13:59:04 SEND-A: MessageID: p5k3UAOP0hFF8QYEHEkL1m, Body: test_message_87
+2022/05/08 13:59:04 SEND-B: MessageID: p5k3UAOP0hFF8QYEHEkL1m, Body: test_message_87
+2022/05/08 13:59:04 RECV-A: MessageID: p5k3UAOP0hFF8QYEHEkL1m, Body: test_message_87, Remainder: 0, Ack
+2022/05/08 13:59:04 RECV-B: MessageID: S3SmnjxPeGfxvdaLJnz6Ru, Body: test_message_88, Ack
+2022/05/08 13:59:04 SEND-A: MessageID: S3SmnjxPeGfxvdaLJnz6Ru, Body: test_message_88
+2022/05/08 13:59:04 SEND-B: MessageID: S3SmnjxPeGfxvdaLJnz6Ru, Body: test_message_88
+2022/05/08 13:59:04 RECV-A: MessageID: S3SmnjxPeGfxvdaLJnz6Ru, Body: test_message_88, Remainder: 0, Ack
+2022/05/08 13:59:04 SEND-A: MessageID: qk6o013IUh9fO0LTR5dbxr, Body: test_message_89
+2022/05/08 13:59:04 RECV-B: MessageID: qk6o013IUh9fO0LTR5dbxr, Body: test_message_89, Ack
+2022/05/08 13:59:04 SEND-B: MessageID: qk6o013IUh9fO0LTR5dbxr, Body: test_message_89
+2022/05/08 13:59:04 RECV-A: MessageID: qk6o013IUh9fO0LTR5dbxr, Body: test_message_89, Remainder: 0, Ack
+2022/05/08 13:59:05 RECV-B: MessageID: PX4KJN9Ji8qlmjJBUPgPFm, Body: test_message_90, Ack
+2022/05/08 13:59:05 SEND-A: MessageID: PX4KJN9Ji8qlmjJBUPgPFm, Body: test_message_90
+2022/05/08 13:59:05 SEND-B: MessageID: PX4KJN9Ji8qlmjJBUPgPFm, Body: test_message_90
+2022/05/08 13:59:05 RECV-A: MessageID: PX4KJN9Ji8qlmjJBUPgPFm, Body: test_message_90, Remainder: 0, Ack
+2022/05/08 13:59:05 RECV-B: MessageID: yah57KNtJ1NukZt3sU3itc, Body: test_message_91, Ack
+2022/05/08 13:59:05 SEND-A: MessageID: yah57KNtJ1NukZt3sU3itc, Body: test_message_91
+2022/05/08 13:59:05 RECV-A: MessageID: yah57KNtJ1NukZt3sU3itc, Body: test_message_91, Remainder: 0, Ack
+2022/05/08 13:59:05 SEND-B: MessageID: yah57KNtJ1NukZt3sU3itc, Body: test_message_91
+2022/05/08 13:59:05 SEND-A: MessageID: kOnxDnQOA5cLK72hIu9q10, Body: test_message_92
+2022/05/08 13:59:05 RECV-B: MessageID: kOnxDnQOA5cLK72hIu9q10, Body: test_message_92, Ack
+2022/05/08 13:59:05 SEND-B: MessageID: kOnxDnQOA5cLK72hIu9q10, Body: test_message_92
+2022/05/08 13:59:05 RECV-A: MessageID: kOnxDnQOA5cLK72hIu9q10, Body: test_message_92, Remainder: 0, Ack
+2022/05/08 13:59:05 RECV-B: MessageID: hPObGjsCo3roA2EraFWm0o, Body: test_message_93, Ack
+2022/05/08 13:59:05 SEND-A: MessageID: hPObGjsCo3roA2EraFWm0o, Body: test_message_93
+2022/05/08 13:59:05 RECV-A: MessageID: hPObGjsCo3roA2EraFWm0o, Body: test_message_93, Remainder: 0, Ack
+2022/05/08 13:59:05 SEND-B: MessageID: hPObGjsCo3roA2EraFWm0o, Body: test_message_93
+2022/05/08 13:59:05 SEND-A: MessageID: 67XpfJ4t72j63dSGdLpwlE, Body: test_message_94
+2022/05/08 13:59:05 RECV-B: MessageID: 67XpfJ4t72j63dSGdLpwlE, Body: test_message_94, Ack
+2022/05/08 13:59:05 RECV-A: MessageID: 67XpfJ4t72j63dSGdLpwlE, Body: test_message_94, Remainder: 0, Ack
+2022/05/08 13:59:05 SEND-B: MessageID: 67XpfJ4t72j63dSGdLpwlE, Body: test_message_94
+2022/05/08 13:59:05 SEND-A: MessageID: eS1aIFrChMc7O4um19fU4L, Body: test_message_95
+2022/05/08 13:59:05 RECV-B: MessageID: eS1aIFrChMc7O4um19fU4L, Body: test_message_95, Ack
+2022/05/08 13:59:05 SEND-B: MessageID: eS1aIFrChMc7O4um19fU4L, Body: test_message_95
+2022/05/08 13:59:05 RECV-A: MessageID: eS1aIFrChMc7O4um19fU4L, Body: test_message_95, Remainder: 0, Ack
+2022/05/08 13:59:05 SEND-A: MessageID: KC2axsJARDvMeQkfqjH2xs, Body: test_message_96
+2022/05/08 13:59:05 RECV-B: MessageID: KC2axsJARDvMeQkfqjH2xs, Body: test_message_96, Ack
+2022/05/08 13:59:05 SEND-B: MessageID: KC2axsJARDvMeQkfqjH2xs, Body: test_message_96
+2022/05/08 13:59:05 RECV-A: MessageID: KC2axsJARDvMeQkfqjH2xs, Body: test_message_96, Remainder: 0, Ack
+2022/05/08 13:59:05 SEND-A: MessageID: OpAVzTIdbcM4J327Iqm8Ks, Body: test_message_97
+2022/05/08 13:59:05 RECV-B: MessageID: OpAVzTIdbcM4J327Iqm8Ks, Body: test_message_97, Ack
+2022/05/08 13:59:05 ERROR-B: QueueTransactionMessageResponse.Ack failed, err: EOF
+Process 41544 has exited with status 1
+Detaching
+dlv dap (17392) exited with code: 0
