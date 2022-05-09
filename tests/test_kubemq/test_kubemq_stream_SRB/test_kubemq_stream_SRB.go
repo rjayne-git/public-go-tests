@@ -16,10 +16,10 @@ import (
 
 /*
 * This code uses a modified version of (https://github.com/kubemq-io/go-sdk-cookbook/blob/main/queues/stream/main.go).
-* In this test scenario there are 2 message queues (channelA, channelB) and 2 queue stream clients (queuesClientA, queuesClientB).
-* queuesClientA sends messages to channelB. Those messageIDs are added to a string set.
-* queuesClientB receives messages from channelB and echos/sends them to channelA (the hard way, not via resend).
-* queuesClientA receives messages from channelA. Those messageIDs are removed from the string set.
+* In this test scenario there are 2 message queues (channelA, channelB) and 3 queue stream clients (senderA, receiverA, queuesClientB).
+* senderA sends messages to channelB. Those messageIDs are added to a string set.
+* queuesClientB receives messages from channelB and echos/resends them to channelA (via resend).
+* receiverA receives messages from channelA. Those messageIDs are removed from the string set.
 * A successful test will have no errors and no 'lost' messages in the string set.
  */
 
@@ -69,24 +69,38 @@ func (rcvr *stringSet) print() {
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	// queuesClientA will send messages to channelB and recv messages from channelA.
-	queuesClientA, err := kubemq.NewQueuesStreamClient(ctx,
+	// senderA will send messages to channelB.
+	senderA, err := kubemq.NewQueuesStreamClient(ctx,
 		kubemq.WithAddress("localhost", 50000),
-		kubemq.WithClientId("test-kubemq-stream-A"),
+		kubemq.WithClientId("sender-A"),
 		kubemq.WithTransportType(kubemq.TransportTypeGRPC))
 	if err != nil {
-		log.Fatalf("ERROR-A: NewQueuesStreamClient failed, err: %v", err)
+		log.Fatalf("ERROR-S-A: NewQueuesStreamClient failed, err: %v", err)
 	}
 	defer func() {
-		err := queuesClientA.Close()
+		err := senderA.Close()
 		if err != nil {
-			log.Fatalf("ERROR-A: QueuesStreamClient.Close failed, err: %v", err)
+			log.Fatalf("ERROR-S-A: QueuesStreamClient.Close failed, err: %v", err)
 		}
 	}()
-	// queuesClientB will recv messages from channelB and echo/send messages back to channelA.
+	// receiverA will recv messages from channelA.
+	receiverA, err := kubemq.NewQueuesStreamClient(ctx,
+		kubemq.WithAddress("localhost", 50000),
+		kubemq.WithClientId("receiver-A"),
+		kubemq.WithTransportType(kubemq.TransportTypeGRPC))
+	if err != nil {
+		log.Fatalf("ERROR-R-A: NewQueuesStreamClient failed, err: %v", err)
+	}
+	defer func() {
+		err := receiverA.Close()
+		if err != nil {
+			log.Fatalf("ERROR-R-A: QueuesStreamClient.Close failed, err: %v", err)
+		}
+	}()
+	// queuesClientB will recv messages from channelB and echo/resend messages back to channelA.
 	queuesClientB, err := kubemq.NewQueuesStreamClient(ctx,
 		kubemq.WithAddress("localhost", 50000),
-		kubemq.WithClientId("test-kubemq-stream-B"),
+		kubemq.WithClientId("client-B"),
 		kubemq.WithTransportType(kubemq.TransportTypeGRPC))
 	if err != nil {
 		log.Fatalf("ERROR-B: NewQueuesStreamClient failed, err: %v", err)
@@ -102,31 +116,31 @@ func main() {
 	messageSet.init()
 	channelA := "test.kubemq.stream.A"
 	channelB := "test.kubemq.stream.B"
-	// Start queuesClientA receive and print routine.
-	doneA, err := queuesClientA.TransactionStream(ctx, &kubemq.QueueTransactionMessageRequest{
-		ClientID:          "test-kubemq-stream-receiver-A",
+	// Start receiverA receive and print routine.
+	doneA, err := receiverA.TransactionStream(ctx, &kubemq.QueueTransactionMessageRequest{
+		ClientID:          "receiver-A",
 		Channel:           channelA,
 		VisibilitySeconds: 10,
 		WaitTimeSeconds:   10,
 	}, func(response *kubemq.QueueTransactionMessageResponse, err error) {
 		if err != nil {
-			log.Printf("ERROR-A: QueueTransactionMessageResponse failed, err: %v", err)
+			log.Printf("ERROR-R-A: QueueTransactionMessageResponse failed, err: %v", err)
 		} else {
 			remainderCount := messageSet.remove(response.Message.MessageID)
 			log.Printf("RECV-A: MessageID: %s, Body: %s, Remainder: %d, Ack", response.Message.MessageID, string(response.Message.Body), remainderCount)
 			err = response.Ack()
 			if err != nil {
-				log.Fatalf("ERROR-A: QueueTransactionMessageResponse.Ack failed, err: %v", err)
+				log.Fatalf("ERROR-R-A: QueueTransactionMessageResponse.Ack failed, err: %v", err)
 			}
 		}
 	})
 	if err != nil {
-		log.Fatalf("ERROR-A: TransactionStream failed, err: %v", err)
+		log.Fatalf("ERROR-R-A: TransactionStream failed, err: %v", err)
 	}
 	defer func() { doneA <- struct{}{} }()
-	// Start queuesClientB receive and send/echo routine.
+	// Start queuesClientB receive and echo/resend routine.
 	doneB, err := queuesClientB.TransactionStream(ctx, &kubemq.QueueTransactionMessageRequest{
-		ClientID:          "test-kubemq-stream-receiver-B",
+		ClientID:          "client-B",
 		Channel:           channelB,
 		VisibilitySeconds: 10,
 		WaitTimeSeconds:   10,
@@ -136,40 +150,32 @@ func main() {
 		} else {
 			message := string(response.Message.Body)
 			log.Printf("RECV-B: MessageID: %s, Body: %s, Ack", response.Message.MessageID, message)
-			err = response.Ack()
+			err = response.Resend(channelA) // Also performs Ack.
 			if err != nil {
-				log.Fatalf("ERROR-B: QueueTransactionMessageResponse.Ack failed, err: %v", err)
+				log.Fatalf("ERROR-B: QueueTransactionMessageResponse.Resend failed, err: %v", err)
 			}
-			// Send/echo message to channelA.
-			sendResult, err := queuesClientB.Send(ctx, kubemq.NewQueueMessage().
-				SetId(response.Message.MessageID).
-				SetChannel(channelA).
-				SetBody(response.Message.Body))
-			if err != nil {
-				log.Fatalf("ERROR-B: QueuesStreamClient.Send failed, err: %v", err)
-			}
-			log.Printf("SEND-B: MessageID: %s, Body: %s", sendResult.MessageID, message)
+			log.Printf("SEND-B: MessageID: %s, Body: %s", response.Message.MessageID, message)
 		}
 	})
 	if err != nil {
 		log.Fatalf("ERROR-B: TransactionStream failed, err: %v", err)
 	}
 	defer func() { doneB <- struct{}{} }()
-	// Start queuesClientA send routine.
+	// Start senderA send routine.
 	var testDoneChan = make(chan struct{})
 	go func() {
 		for i := 1; i <= 10000; i++ {
 			messageID := nuid.New().Next()
 			messageSet.add(messageID)
 			message := fmt.Sprintf("test_message_%d", i)
-			sendResult, err := queuesClientA.Send(ctx, kubemq.NewQueueMessage().
+			sendResult, err := senderA.Send(ctx, kubemq.NewQueueMessage().
 				SetId(messageID).
 				SetChannel(channelB).
 				SetBody([]byte(message)))
 			if err != nil {
-				log.Fatalf("ERROR-A: QueuesStreamClient.Send failed, err: %v", err)
+				log.Fatalf("ERROR-S-A: QueuesStreamClient.Send failed, err: %v", err)
 			}
-			log.Printf("SEND-A: MessageID: %s, Body: %s", sendResult.MessageID, message)
+			log.Printf("SEND-S-A: MessageID: %s, Body: %s", sendResult.MessageID, message)
 			time.Sleep(100 * time.Millisecond)
 		}
 		close(testDoneChan)

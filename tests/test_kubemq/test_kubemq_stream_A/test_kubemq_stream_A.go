@@ -18,7 +18,7 @@ import (
 * This code uses a modified version of (https://github.com/kubemq-io/go-sdk-cookbook/blob/main/queues/stream/main.go).
 * In this test scenario there is 1 message queue (channelA) and 1 queue stream client (queuesClientA).
 * queuesClientA sends messages to channelA. Those messageIDs are added to a string set.
-* queuesClientA receives messages from channelA.  Those messageIDs are removed from the string set.
+* queuesClientA receives messages from channelA. Those messageIDs are removed from the string set.
 * A successful test will have no errors and no 'lost' messages in the string set.
  */
 
