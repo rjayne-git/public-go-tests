@@ -154,7 +154,7 @@ func main() {
 			if err != nil {
 				log.Fatalf("ERROR-B: QueueTransactionMessageResponse.Resend failed, err: %v", err)
 			}
-			log.Printf("SEND-B: MessageID: %s, Body: %s", response.Message.MessageID, message)
+			log.Printf("RSND-B: MessageID: %s, Body: %s", response.Message.MessageID, message)
 		}
 	})
 	if err != nil {
@@ -175,7 +175,7 @@ func main() {
 			if err != nil {
 				log.Fatalf("ERROR-S-A: QueuesStreamClient.Send failed, err: %v", err)
 			}
-			log.Printf("SEND-S-A: MessageID: %s, Body: %s", sendResult.MessageID, message)
+			log.Printf("SEND-A: MessageID: %s, Body: %s", sendResult.MessageID, message)
 			time.Sleep(100 * time.Millisecond)
 		}
 		close(testDoneChan)
