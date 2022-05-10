@@ -21,7 +21,8 @@ import (
  */
 
 const (
-	kubemqAddress = "kubemq-cluster.kubemq.svc.cluster.local"
+	appName       = "test-kubemq-stream-AB"
+	kubemqAddress = "kubemq-cluster-grpc.kubemq.svc.local"
 	kubemqPort    = 50000
 )
 
@@ -41,7 +42,7 @@ func (rcvr *stringSet) add(messageID string) int {
 	defer rcvr.Unlock()
 	_, exists := rcvr.m[messageID]
 	if exists {
-		log.Fatalf("ERROR: MessageSet.add detected dupe message, messageID: %s", messageID)
+		log.Panicf("ERROR: MessageSet.add detected dupe message, messageID: %s", messageID)
 	}
 	rcvr.m[messageID] = true
 	return len(rcvr.m)
@@ -69,6 +70,7 @@ func (rcvr *stringSet) print() {
 }
 
 func main() {
+	log.Print(appName + ".Begin")
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	// queuesClientA will send messages to channelB and recv messages from channelA.
@@ -77,34 +79,37 @@ func main() {
 		kubemq.WithClientId("test-kubemq-stream-A"),
 		kubemq.WithTransportType(kubemq.TransportTypeGRPC))
 	if err != nil {
-		log.Fatalf("ERROR-A: NewQueuesStreamClient failed, err: %v", err)
+		log.Panicf("ERROR-A: NewQueuesStreamClient failed, err: %v", err)
 	}
 	defer func() {
 		err := queuesClientA.Close()
 		if err != nil {
-			log.Fatalf("ERROR-A: QueuesStreamClient.Close failed, err: %v", err)
+			log.Panicf("ERROR-A: QueuesStreamClient.Close failed, err: %v", err)
 		}
 	}()
+	log.Print("Created queuesClientA")
 	// queuesClientB will recv messages from channelB and echo/send messages back to channelA.
 	queuesClientB, err := kubemq.NewQueuesStreamClient(ctx,
 		kubemq.WithAddress(kubemqAddress, kubemqPort),
 		kubemq.WithClientId("test-kubemq-stream-B"),
 		kubemq.WithTransportType(kubemq.TransportTypeGRPC))
 	if err != nil {
-		log.Fatalf("ERROR-B: NewQueuesStreamClient failed, err: %v", err)
+		log.Panicf("ERROR-B: NewQueuesStreamClient failed, err: %v", err)
 	}
 	defer func() {
 		err := queuesClientB.Close()
 		if err != nil {
-			log.Fatalf("ERROR-B: QueuesStreamClient.Close failed, err: %v", err)
+			log.Panicf("ERROR-B: QueuesStreamClient.Close failed, err: %v", err)
 		}
 	}()
+	log.Print("Created queuesClientB")
 	// messageSet will track queuesClientA send/recv messages.
 	messageSet := stringSet{}
 	messageSet.init()
 	channelA := "test.kubemq.stream.A"
 	channelB := "test.kubemq.stream.B"
 	// Start queuesClientA receive and print routine.
+	log.Print("Running queuesClientA.TransactionStream")
 	doneA, err := queuesClientA.TransactionStream(ctx, &kubemq.QueueTransactionMessageRequest{
 		ClientID:          "test-kubemq-stream-receiver-A",
 		Channel:           channelA,
@@ -118,15 +123,16 @@ func main() {
 			log.Printf("RECV-A: MessageID: %s, Body: %s, Remainder: %d, Ack", response.Message.MessageID, string(response.Message.Body), remainderCount)
 			err = response.Ack()
 			if err != nil {
-				log.Fatalf("ERROR-A: QueueTransactionMessageResponse.Ack failed, err: %v", err)
+				log.Panicf("ERROR-A: QueueTransactionMessageResponse.Ack failed, err: %v", err)
 			}
 		}
 	})
 	if err != nil {
-		log.Fatalf("ERROR-A: TransactionStream failed, err: %v", err)
+		log.Panicf("ERROR-A: TransactionStream failed, err: %v", err)
 	}
 	defer func() { doneA <- struct{}{} }()
 	// Start queuesClientB receive and send/echo routine.
+	log.Print("Running queuesClientB.TransactionStream")
 	doneB, err := queuesClientB.TransactionStream(ctx, &kubemq.QueueTransactionMessageRequest{
 		ClientID:          "test-kubemq-stream-receiver-B",
 		Channel:           channelB,
@@ -140,7 +146,7 @@ func main() {
 			log.Printf("RECV-B: MessageID: %s, Body: %s, Ack", response.Message.MessageID, message)
 			err = response.Ack()
 			if err != nil {
-				log.Fatalf("ERROR-B: QueueTransactionMessageResponse.Ack failed, err: %v", err)
+				log.Panicf("ERROR-B: QueueTransactionMessageResponse.Ack failed, err: %v", err)
 			}
 			// Send/echo message to channelA.
 			sendResult, err := queuesClientB.Send(ctx, kubemq.NewQueueMessage().
@@ -148,17 +154,19 @@ func main() {
 				SetChannel(channelA).
 				SetBody(response.Message.Body))
 			if err != nil {
-				log.Fatalf("ERROR-B: QueuesStreamClient.Send failed, err: %v", err)
+				log.Panicf("ERROR-B: QueuesStreamClient.Send failed, err: %v", err)
 			}
 			log.Printf("SEND-B: MessageID: %s, Body: %s", sendResult.MessageID, message)
 		}
 	})
 	if err != nil {
-		log.Fatalf("ERROR-B: TransactionStream failed, err: %v", err)
+		log.Panicf("ERROR-B: TransactionStream failed, err: %v", err)
 	}
 	defer func() { doneB <- struct{}{} }()
 	// Start queuesClientA send routine.
 	wg := new(sync.WaitGroup)
+	wg.Add(1)
+	log.Print("Running queuesClientA.Send loop")
 	go func() {
 		for i := 1; i <= 10000; i++ {
 			messageID := nuid.New().Next()
@@ -169,18 +177,21 @@ func main() {
 				SetChannel(channelB).
 				SetBody([]byte(message)))
 			if err != nil {
-				log.Fatalf("ERROR-A: QueuesStreamClient.Send failed, err: %v", err)
+				log.Panicf("ERROR-A: QueuesStreamClient.Send failed, err: %v", err)
 			}
 			log.Printf("SEND-A: MessageID: %s, Body: %s", sendResult.MessageID, message)
 			time.Sleep(100 * time.Millisecond)
 		}
+		log.Print("Ended queuesClientA.Send loop")
 		time.Sleep(10 * time.Second)
 		messageSet.print()
 		lostCount := messageSet.count()
 		if 0 != lostCount {
-			log.Fatalf("ERROR: Lost Messge Count: %d", lostCount)
+			log.Panicf("ERROR: Lost Messge Count: %d", lostCount)
 		}
-		wg.Done()
+		//wg.Done() // Don't let app exit.
 	}()
+	log.Print("Waiting on wg.Done")
 	wg.Wait()
+	log.Print(appName + ".End")
 }

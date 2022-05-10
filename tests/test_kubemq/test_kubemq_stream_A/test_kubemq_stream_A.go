@@ -20,7 +20,8 @@ import (
  */
 
 const (
-	kubemqAddress = "kubemq-cluster.kubemq.svc.cluster.local"
+	appName       = "test-kubemq-stream-A"
+	kubemqAddress = "kubemq-cluster-grpc.kubemq.svc.local"
 	kubemqPort    = 50000
 )
 
@@ -68,6 +69,7 @@ func (rcvr *stringSet) print() {
 }
 
 func main() {
+	log.Print(appName + ".Begin")
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	// queuesClientA will send messages to channelB and recv messages from channelA.
@@ -84,11 +86,13 @@ func main() {
 			log.Fatalf("ERROR-A: QueuesStreamClient.Close failed, err: %v", err)
 		}
 	}()
+	log.Print("Created queuesClientA")
 	// messageSet will track queuesClientA send/recv messages.
 	messageSet := stringSet{}
 	messageSet.init()
 	channelA := "test.kubemq.stream.A"
 	// Start queuesClientA receive and print routine.
+	log.Print("Running queuesClientA.TransactionStream")
 	doneA, err := queuesClientA.TransactionStream(ctx, &kubemq.QueueTransactionMessageRequest{
 		ClientID:          "test-kubemq-stream-receiver-A",
 		Channel:           channelA,
@@ -112,6 +116,8 @@ func main() {
 	defer func() { doneA <- struct{}{} }()
 	// Start queuesClientA send routine.
 	wg := new(sync.WaitGroup)
+	wg.Add(1)
+	log.Print("Running queuesClientA.Send loop")
 	go func() {
 		for i := 1; i <= 10000; i++ {
 			messageID := nuid.New().Next()
@@ -127,13 +133,16 @@ func main() {
 			log.Printf("SEND-A: MessageID: %s, Body: %s", sendResult.MessageID, message)
 			time.Sleep(100 * time.Millisecond)
 		}
+		log.Print("Ended queuesClientA.Send loop")
 		time.Sleep(10 * time.Second)
 		messageSet.print()
 		lostCount := messageSet.count()
 		if 0 != lostCount {
-			log.Fatalf("ERROR: Lost Messge Count: %d", lostCount)
+			log.Panicf("ERROR: Lost Messge Count: %d", lostCount)
 		}
-		wg.Done()
+		//wg.Done() // Don't let app exit.
 	}()
+	log.Print("Waiting on wg.Done")
 	wg.Wait()
+	log.Print(appName + ".End")
 }
