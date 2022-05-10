@@ -4,10 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
-	"os/signal"
 	"sync"
-	"syscall"
 	"time"
 
 	kubemq "github.com/kubemq-io/kubemq-go"
@@ -21,6 +18,11 @@ import (
 * queuesClientA receives messages from channelA. Those messageIDs are removed from the string set.
 * A successful test will have no errors and no 'lost' messages in the string set.
  */
+
+const (
+	kubemqAddress = "kubemq-cluster.kubemq.svc.cluster.local"
+	kubemqPort    = 50000
+)
 
 type stringSet struct {
 	sync.Mutex
@@ -70,7 +72,7 @@ func main() {
 	defer cancel()
 	// queuesClientA will send messages to channelB and recv messages from channelA.
 	queuesClientA, err := kubemq.NewQueuesStreamClient(ctx,
-		kubemq.WithAddress("localhost", 50000),
+		kubemq.WithAddress(kubemqAddress, kubemqPort),
 		kubemq.WithClientId("test-kubemq-stream-A"),
 		kubemq.WithTransportType(kubemq.TransportTypeGRPC))
 	if err != nil {
@@ -109,7 +111,7 @@ func main() {
 	}
 	defer func() { doneA <- struct{}{} }()
 	// Start queuesClientA send routine.
-	var testDoneChan = make(chan struct{})
+	wg := new(sync.WaitGroup)
 	go func() {
 		for i := 1; i <= 10000; i++ {
 			messageID := nuid.New().Next()
@@ -125,19 +127,13 @@ func main() {
 			log.Printf("SEND-A: MessageID: %s, Body: %s", sendResult.MessageID, message)
 			time.Sleep(100 * time.Millisecond)
 		}
-		close(testDoneChan)
+		time.Sleep(10 * time.Second)
+		messageSet.print()
+		lostCount := messageSet.count()
+		if 0 != lostCount {
+			log.Fatalf("ERROR: Lost Messge Count: %d", lostCount)
+		}
+		wg.Done()
 	}()
-	var gracefulShutdown = make(chan os.Signal, 1)
-	signal.Notify(gracefulShutdown, syscall.SIGTERM)
-	signal.Notify(gracefulShutdown, syscall.SIGINT)
-	signal.Notify(gracefulShutdown, syscall.SIGQUIT)
-	select {
-	case <-gracefulShutdown:
-	case <-testDoneChan:
-	}
-	messageSet.print()
-	lostCount := messageSet.count()
-	if 0 != lostCount {
-		log.Fatalf("ERROR: Lost Messge Count: %d", lostCount)
-	}
+	wg.Wait()
 }
