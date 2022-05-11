@@ -22,7 +22,7 @@ import (
 
 const (
 	appName       = "test-kubemq-stream-AB"
-	kubemqAddress = "kubemq-cluster-grpc.kubemq.svc.local"
+	kubemqAddress = "kubemq-cluster.kubemq.svc.cluster.local"
 	kubemqPort    = 50000
 )
 

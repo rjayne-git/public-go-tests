@@ -134,7 +134,7 @@ func main() {
 			SetChannel(channelA).
 			SetMaxItems(100).
 			SetWaitTimeout(1 * 1000).
-			SetAutoAck(true).
+			//SetAutoAck(true).
 			SetOnErrorFunc(queuesClientAErrorHandler)
 		for {
 			pollResponse, err := queuesClientA.Poll(ctx, pollRequest)
@@ -143,8 +143,15 @@ func main() {
 			}
 			if pollResponse.HasMessages() {
 				for _, message := range pollResponse.Messages {
+					messageString := string(message.Body)
 					remainderCount := messageSet.remove(message.MessageID)
-					log.Printf("RECV-A: MessageID: %s, Body: %s, Remainder: %d", message.MessageID, string(message.Body), remainderCount)
+					log.Printf("RECV-A: MessageID: %s, Body: %s, Remainder: %d", message.MessageID, messageString, remainderCount)
+					// Send message Ack.
+					if err := message.Ack(); err != nil {
+						log.Panicf("ERROR-A: Message.Ack failed, err: %v", err)
+					} else {
+						log.Printf("RECV-A: MessageID: %s, Body: %s, Remainder: %d, Ack", message.MessageID, messageString, remainderCount)
+					}
 				}
 			} else {
 				log.Printf("RECV-A: No messages")
@@ -159,7 +166,7 @@ func main() {
 			SetChannel(channelB).
 			SetMaxItems(100).
 			SetWaitTimeout(1 * 1000).
-			SetAutoAck(true).
+			//SetAutoAck(true).
 			SetOnErrorFunc(queuesClientBErrorHandler)
 		for {
 			pollResponse, err := queuesClientB.Poll(ctx, pollRequest)
@@ -170,17 +177,27 @@ func main() {
 				for _, message := range pollResponse.Messages {
 					messageString := string(message.Body)
 					log.Printf("RECV-B: MessageID: %s, Body: %s", message.MessageID, messageString)
-					// Send messge back to channelA.
-					sendResult, err := queuesClientB.Send(ctx, kubemq_queues_stream.NewQueueMessage().
-						SetId(message.MessageID).
-						SetChannel(channelA).
-						SetBody(message.Body))
-					if err != nil {
-						log.Panicf("ERROR-B: QueuesStreamClient.Send failed, err: %v", err)
+					// ReQueue message to channelA.
+					// This doesn't work with SetAutoAck(true).
+					if err := message.ReQueue(channelA); err != nil {
+						log.Panicf("ERROR-B: Message.ReQueue failed, err: %v", err)
+					} else {
+						log.Printf("RECV-B: MessageID: %s, Body: %s, ReQueue", message.MessageID, messageString)
 					}
-					for _, result := range sendResult.Results {
-						log.Printf("SEND-B: MessageID: %s, Body: %s", result.MessageID, messageString)
-					}
+					/*
+						// Send messge back to channelA without ReQueue.
+						// This works with SetAutoAck(true).
+						sendResult, err := queuesClientB.Send(ctx, kubemq_queues_stream.NewQueueMessage().
+							SetId(message.MessageID).
+							SetChannel(channelA).
+							SetBody(message.Body))
+						if err != nil {
+							log.Panicf("ERROR-B: QueuesStreamClient.Send failed, err: %v", err)
+						}
+						for _, result := range sendResult.Results {
+							log.Printf("SEND-B: MessageID: %s, Body: %s", result.MessageID, messageString)
+						}
+					*/
 				}
 			} else {
 				log.Printf("RECV-B: No messages")
@@ -188,7 +205,7 @@ func main() {
 		}
 	}()
 	// Start queuesClientA send routine.
-	// Sends 10 messages per second.
+	// Sends 20 messages per second.
 	wg := new(sync.WaitGroup)
 	wg.Add(1)
 	log.Print("Running queuesClientA.Send loop")
@@ -207,7 +224,7 @@ func main() {
 			for _, result := range sendResult.Results {
 				log.Printf("SEND-A: MessageID: %s, Body: %s", result.MessageID, message)
 			}
-			time.Sleep(100 * time.Millisecond)
+			time.Sleep(50 * time.Millisecond)
 		}
 		log.Print("Ended queuesClientA.Send loop")
 		time.Sleep(10 * time.Second)
