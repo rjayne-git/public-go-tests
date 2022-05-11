@@ -75,7 +75,7 @@ func main() {
 	defer cancel()
 	// queuesClientA will send messages to channelB and recv messages from channelA.
 	queuesClientAConnectHandler := func(msg string) {
-		log.Print("CONNECT-A: msg: %s", msg)
+		log.Printf("CONNECT-A: msg: %s", msg)
 	}
 	queuesClientAErrorHandler := func(err error) {
 		log.Panicf("ERROR-A: err: %v", err)
@@ -99,7 +99,7 @@ func main() {
 	log.Print("Created queuesClientA")
 	// queuesClientB will recv messages from channelB and echo/send messages back to channelA.
 	queuesClientBConnectHandler := func(msg string) {
-		log.Print("CONNECT-B: msg: %s", msg)
+		log.Printf("CONNECT-B: msg: %s", msg)
 	}
 	queuesClientBErrorHandler := func(err error) {
 		log.Panicf("ERROR-B: err: %v", err)
